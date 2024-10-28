@@ -143,10 +143,10 @@ config_after_install() {
     local existing_password=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'password: .+' | awk '{print $2}')
     local existing_webBasePath=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'webBasePath: .+' | awk '{print $2}')
     local config_webBasePath="xui3bram85"
+    local config_port="44965"
 
     if [[ ${#existing_webBasePath} -lt 4 ]]; then
         if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
-            read -p "Please set up the panel port: " config_port
             read -p "Please set up the username: " config_username
             read -sp "Please set up the password: " config_password
             echo
@@ -186,6 +186,7 @@ config_after_install() {
 
     /usr/local/x-ui/x-ui migrate
 }
+
 
 install_x-ui() {
     cd /usr/local/
