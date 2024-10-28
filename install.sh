@@ -146,8 +146,6 @@ config_after_install() {
     if [[ ${#existing_webBasePath} -lt 4 ]]; then
         if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
             local config_webBasePath=$(gen_random_string 15)
-            local config_username=$(gen_random_string 10)
-            local config_password=$(gen_random_string 10)
 
             read -p "Would you like to customize the Panel Port settings? (If not, random port will be applied) [y/n]: " config_confirm
             if [[ "${config_confirm}" == "y" || "${config_confirm}" == "Y" ]]; then
@@ -158,9 +156,12 @@ config_after_install() {
                 echo -e "${yellow}Generated random port: ${config_port}${plain}"
             fi
 
+            read -p "Please set up the username: " config_username
+            read -sp "Please set up the password: " config_password
+            echo
+
             /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}" -port "${config_port}" -webBasePath "${config_webBasePath}"
-            echo -e "Hello, yopta!"
-            echo -e "This is a fresh installation, generating random login info for security concerns:"
+            echo -e "Setup complete!"
             echo -e "###############################################"
             echo -e "${green}Username: ${config_username}${plain}"
             echo -e "${green}Password: ${config_password}${plain}"
@@ -176,13 +177,13 @@ config_after_install() {
         fi
     else
         if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
-            local config_username=$(gen_random_string 10)
-            local config_password=$(gen_random_string 10)
+            read -p "Please set up the username: " config_username
+            read -sp "Please set up the password: " config_password
+            echo
 
             echo -e "${yellow}Default credentials detected. Security update required...${plain}"
             /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}"
-            echo -e "Ulibnis eba-boba"
-            echo -e "Generated new random login credentials:"
+            echo -e "Updated credentials:"
             echo -e "###############################################"
             echo -e "${green}Username: ${config_username}${plain}"
             echo -e "${green}Password: ${config_password}${plain}"
