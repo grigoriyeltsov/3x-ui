@@ -6,7 +6,6 @@
 
 https://github.com/MHSanaei/3x-ui
 
-**An Advanced Web Panel • Built on Xray Core**
 
 [![](https://img.shields.io/github/v/release/mhsanaei/3x-ui.svg)](https://github.com/MHSanaei/3x-ui/releases)
 [![](https://img.shields.io/github/actions/workflow/status/mhsanaei/3x-ui/release.yml.svg)](#)
@@ -30,8 +29,13 @@ https://github.com/MHSanaei/3x-ui
 
 ## Install & Upgrade
 
+## Official link
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+```
+## Don't recommend
+```
+bash <(curl -Ls https://raw.githubusercontent.com/grigoriyeltsov/3x-ui/master/install.sh)
 ```
 
 ## Install Old Version (we don't recommend)
