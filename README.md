@@ -15,7 +15,7 @@ https://github.com/MHSanaei/3x-ui
 
 For root user:
 ```
-cd ~
+cd
 vi .env
 ```
 Add to .env file
