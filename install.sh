@@ -139,7 +139,7 @@ gen_random_string() {
 }
 
 config_after_install() {
-    if [[ -f .env ]]; then
+    if [[ -f /root/.env ]]; then
         export $(grep -v '^#' .env | xargs)
     else
         echo "Error: .env file not found. Please ensure it exists and contains LOGIN, PASSWORD, PORT, and WEB_BASE_PATH."
