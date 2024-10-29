@@ -17,6 +17,7 @@ For root user:
 ```
 cd
 vi .env
+i(insert)
 ```
 Add to .env file
 
@@ -27,6 +28,7 @@ PORT="your port"
 WEB_BASE_PATH="add path"
 ```
 ```
+ctrl+c
 :wq
 ```
 
