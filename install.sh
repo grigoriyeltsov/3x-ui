@@ -139,49 +139,34 @@ gen_random_string() {
 }
 
 config_after_install() {
+    if [[ -f .env ]]; then
+        export $(grep -v '^#' .env | xargs)
+    else
+        echo "Error: .env file not found. Please ensure it exists and contains LOGIN, PASSWORD, PORT, and WEB_BASE_PATH."
+        exit 1
+    fi
+
+    if [[ -z "$LOGIN" || -z "$PASSWORD" || -z "$PORT" || -z "$WEB_BASE_PATH" ]]; then
+        echo "Error: One or more required environment variables are missing in the .env file."
+        exit 1
+    fi
+
     local existing_username=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'username: .+' | awk '{print $2}')
     local existing_password=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'password: .+' | awk '{print $2}')
     local existing_webBasePath=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'webBasePath: .+' | awk '{print $2}')
-    local config_webBasePath="xui3bram85"
-    local config_port="44965"
 
     if [[ ${#existing_webBasePath} -lt 4 ]]; then
-        if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
-            read -p "Please set up the username: " config_username
-            read -sp "Please set up the password: " config_password
-            echo
-
-            /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}" -port "${config_port}" -webBasePath "${config_webBasePath}"
-            echo -e "Setup complete!"
-            echo -e "###############################################"
-            echo -e "${green}Username: ${config_username}${plain}"
-            echo -e "${green}Password: ${config_password}${plain}"
-            echo -e "${green}Port: ${config_port}${plain}"
-            echo -e "${green}WebBasePath: ${config_webBasePath}${plain}"
-            echo -e "###############################################"
-            echo -e "${yellow}If you forgot your login info, you can type 'x-ui settings' to check${plain}"
-        else
-            echo -e "${yellow}WebBasePath is missing or too short. Setting it to fixed value...${plain}"
-            /usr/local/x-ui/x-ui setting -webBasePath "${config_webBasePath}"
-            echo -e "${green}New WebBasePath: ${config_webBasePath}${plain}"
-        fi
+        /usr/local/x-ui/x-ui setting -username "${LOGIN}" -password "${PASSWORD}" -port "${PORT}" -webBasePath "${WEB_BASE_PATH}"
+        echo -e "Setup complete!"
+        echo -e "###############################################"
+        echo -e "${green}Username: ${LOGIN}${plain}"
+        echo -e "${green}Password: ${PASSWORD}${plain}"
+        echo -e "${green}Port: ${PORT}${plain}"
+        echo -e "${green}WebBasePath: ${WEB_BASE_PATH}${plain}"
+        echo -e "###############################################"
+        echo -e "${yellow}If you forgot your login info, you can type 'x-ui settings' to check${plain}"
     else
-        if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
-            read -p "Please set up the username: " config_username
-            read -sp "Please set up the password: " config_password
-            echo
-
-            echo -e "${yellow}Default credentials detected. Security update required...${plain}"
-            /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}"
-            echo -e "Updated credentials:"
-            echo -e "###############################################"
-            echo -e "${green}Username: ${config_username}${plain}"
-            echo -e "${green}Password: ${config_password}${plain}"
-            echo -e "###############################################"
-            echo -e "${yellow}If you forgot your login info, you can type 'x-ui settings' to check${plain}"
-        else
-            echo -e "${green}Username, Password, and WebBasePath are properly set. Exiting...${plain}"
-        fi
+        echo -e "${green}Username, Password, and WebBasePath are properly set. Exiting...${plain}"
     fi
 
     /usr/local/x-ui/x-ui migrate
