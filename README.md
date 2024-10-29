@@ -38,7 +38,7 @@ Then start script in same directory
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
 ```
-## Do not recommend
+## Start after creation env file
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/grigoriyeltsov/3x-ui/master/install.sh)
 ```
