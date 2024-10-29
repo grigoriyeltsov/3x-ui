@@ -32,7 +32,7 @@ ctrl+c
 :wq
 ```
 
-Then start script
+Then start script in same directory
 
 ## Official link
 ```
