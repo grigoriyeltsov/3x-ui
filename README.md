@@ -13,6 +13,25 @@ https://github.com/MHSanaei/3x-ui
 
 ## Install & Upgrade
 
+For root user:
+```
+cd ~
+vi .env
+```
+Add to .env file
+
+```
+LOGIN="your username"
+PASSWORD="your password"
+PORT="your port"
+WEB_BASE_PATH="add path"
+```
+```
+:wq
+```
+
+Then start script
+
 ## Official link
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
