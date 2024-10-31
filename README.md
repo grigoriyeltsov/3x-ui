@@ -14,11 +14,7 @@ https://github.com/MHSanaei/3x-ui
 ## Install & Upgrade
 
 For root user:
-```
-cd
-vi .env
-i(insert)
-```
+
 Add to .env file
 
 ```
@@ -26,10 +22,6 @@ LOGIN="your username"
 PASSWORD="your password"
 PORT="your port"
 WEB_BASE_PATH="add path"
-```
-```
-ctrl+c
-:wq
 ```
 
 Then start script in same directory
